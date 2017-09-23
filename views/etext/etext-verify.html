@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css"/>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Virtual Stand-up</a>
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="/">Home</a></li>
+                <li class="active"><a href="/newnote">New Note</a></li>
+                <li><a href="/discuss">Discuss</a></li>
+            </ul>
+        </div><!--/.nav-collapse -->
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="text-center">
+        <h1>Echo Text - verify</h1>
+        <p class="lead">Let's verify the Echo Text ...</p>
+    </div>
+
+    {% if message.length > 0 %}
+    <div class="alert alert-danger alert-error">
+        {{ message }}
+    </div>
+    {% endif %}
+
+    <form class="form-horizontal" action="verify" method="post">
+        <fieldset>
+
+            <div class="col-md-12 column list-group">
+                <div class="list-group-item">
+                    <div>Item created on: {{ item.createdOn.toDateString() }}</div>
+                    <div><strong>Title: </strong> {{ item.eTitle }}</div>
+                    <div><strong>SubTitle: </strong> {{ item.eSubTitle }}</div>
+                    <div><strong>Order number: </strong> {{ item.eOrder }}</div>
+                    <div><strong>Hint: </strong> {{ item.eHint }}</div>
+                </div>
+            </div>
+
+            <!-- Form Name -->
+            <legend>The result of the verification:</legend>
+
+            {% for part in test.diff %}
+                {% if part.added %}
+                <ins>{{part.value}}</ins>
+                {% endif %}
+
+                {% if part.removed %}
+                <s>{{part.value}}</s>
+                {% endif %}
+
+                {% if !part.added && !part.removed %}
+                {{part.value}}
+                {% endif %}
+            {% endfor %}
+
+            <br><br>
+
+            <div><strong> {{ test.message }} </strong></div>
+
+            <!-- Button -->
+            <div class="form-group">
+                <div class="col-md-4">
+                    <button id="btnSaveNote" name="btnSaveNote" class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </div>
+
+        </fieldset>
+    </form>
+
+</div><!-- /.container -->
+</body>
+</html>
