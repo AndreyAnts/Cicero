@@ -1,5 +1,7 @@
 'use strict';
 
+var Utils = require('../CommonObject/utils');
+
 var Echotext = require('../models/echotext.server.model');
 
 function list(req, res){
@@ -66,7 +68,7 @@ function submit(req, res) {
 }
 
 function verify(req, res) {
-  var id = req.body.btnSaveNote;
+    var id = req.body.btnSaveNote;
     var query = Echotext.findById(id);
     query.exec(function(err, results){
         if(err){
@@ -74,35 +76,13 @@ function verify(req, res) {
             return;
         }
         else {
-            var test = checkText(results.eText, req.body.eText);
+            var test = Utils.checkText(results.eText, req.body.eText);
+            Utils.saveHistory(id, req.body.eText, test.errors);
             return res.render('./etext/etext-verify', {title: "Let's verify this item", item: results, test: test});
         }
     });
 };
 
-function checkText(one, other){
-    var diff = require('diff').diffChars(one, other);
-
-    console.log(diff);
-
-    var result = {};
-    result.diff = diff;
-    result.errors = diff.filter(function(x){
-        return (x.added || x.removed);
-        }).length;
-
-    if( result.errors === 0 ){
-        result.message = 'No errors. Well done!';
-    }
-    else if( result.errors === 1){
-        result.message = '1 error discovered.';
-    }
-    else {
-        result.message = 'There are ' + result.errors + 'errors discovered.'
-    }
-
-    return result;
-}
 
 // Module exports...
 module.exports.list = list;
