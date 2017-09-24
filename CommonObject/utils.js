@@ -47,7 +47,7 @@ exports.saveUser = function saveUser( user ) {
 };
 
 exports.checkText = function checkText(one, other){
-    var diff = require('diff').diffChars(one, other);
+    var diff = require('diff').diffWords(one, other);
 
     console.log(diff);
 
