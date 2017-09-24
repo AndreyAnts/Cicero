@@ -66,8 +66,14 @@
 
             <!-- Button -->
             <div class="form-group">
-                <div class="col-md-4">
+                <div class="col-md-8">
                     <button id="btnSaveNote" name="btnSaveNote" value="{{ item._id.toString() }}" class="btn btn-primary" type="submit">Submit</button>
+                </div>
+                <div class="col-md-4">
+                    <form>
+                        <input type="radio" name="mode" value="study" checked> Study Mode<br>
+                        <input type="radio" name="mode" value="verification"> Verification<br>
+                    </form>
                 </div>
             </div>
 

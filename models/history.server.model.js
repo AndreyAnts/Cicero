@@ -6,6 +6,7 @@ var historyRecordSchema = new Schema({
     ActionedOn: {type: Date, isRequired: true},
     ActionedFor: {type: Schema.Types.ObjectId, ref: 'Echotext'},
     Body: {type: String, isRequired: true},
+    timeSpent: Number,
     IsSuccess: Boolean,
     NumOfErrors: Number
 });

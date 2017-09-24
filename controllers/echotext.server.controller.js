@@ -77,7 +77,9 @@ function verify(req, res) {
         }
         else {
             var test = Utils.checkText(results.eText, req.body.eText);
-            Utils.saveHistory(id, req.body.eText, test.errors);
+            if(req.body.mode === 'verification') {
+                Utils.saveHistory(id, req.body.eText, test.errors);
+            }
             return res.render('./etext/etext-verify', {title: "Let's verify this item", item: results, test: test});
         }
     });
