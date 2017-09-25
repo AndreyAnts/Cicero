@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>{{ title }}</title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel='stylesheet' href='/stylesheets/style.css'/>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css"/>
 </head>
@@ -37,7 +37,7 @@
     <div>
         <!--<h2>Latest Notes</h2>-->
 
-        <br />
+        <br/>
 
         <div class="container">
             <div class="col-md-12 column list-group">
@@ -51,13 +51,29 @@
                     <div><strong>Text: </strong>{{ item.eText }}</div>
                     <!-- Button -->
 
-                    <form class="form-horizontal" action="submit" method="post">
-                        <fieldset>
+                    <fieldset>
+                        <form class="form-horizontal" action="submit" method="post">
                             <div class="col-md-4 text-right">
-                                <button id="btnSaveNote" name="btnSaveNote" value = "{{ item._id.toString() }}" class="btn btn-primary" type="submit">Verify</button>
+                                <button id="btnSaveNote" name="btnSaveNote" value="{{ item._id.toString() }}"
+                                        class="btn btn-primary" type="submit">Verify
+                                </button>
                             </div>
-                        </fieldset>
-                    </form>
+                        </form>
+                        <form class="form-horizontal" action="submit" method="post">
+                            <div class="col-md-6 text-right">
+                                <button id="btnEdit" name="btnEdit" value="{{ item._id.toString() }}"
+                                        class="btn btn-primary" type="submit">Edit
+                                </button>
+                            </div>
+                        </form>
+                        <form class="form-horizontal" action="history" method="get">
+                            <div class="col-md-1 text-right">
+                                <button id="btnShowHistory" name="btnShowHistory" value="{{ item._id.toString() }}"
+                                        class="btn btn-primary" type="submit">Show History
+                                </button>
+                            </div>
+                        </form>
+                    </fieldset>
 
                 </div>
                 {% endfor %}

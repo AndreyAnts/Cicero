@@ -3,25 +3,28 @@
 var Utils = require('../CommonObject/utils');
 
 var Echotext = require('../models/echotext.server.model');
+var User = require('../models/user.server.model');
+var HistoryRecord = require('../models/history.server.model');
 
-function list(req, res){
+
+function list(req, res) {
     var query = Echotext.find();
 
     query.sort({eOrder: 'ascending'})
         .limit(12)
-        .exec(function(err, results){
-            if(err){
+        .exec(function (err, results) {
+            if (err) {
                 console.error('ERROR on List() ' + err);
                 return;
             }
 
-            res.render('./etext/etext-list', {title:'EchoText items - List', items: results}
+            res.render('./etext/etext-list', {title: 'EchoText items - List', items: results}
             );
-    });
+        });
 };
 
 function getNewForm(req, res) {
-  return res.render('./etext/etext-new', {title: 'Create a new Echo Text item'} );
+    return res.render('./etext/etext-new', {title: 'Create a new Echo Text item'});
 };
 
 function create(req, res) {
@@ -39,14 +42,14 @@ function create(req, res) {
     entry.save(function (err) {
         if (err) {
             var errMsg = 'Sorry, there was an error saving a new Echo Text item. ' + err;
-            res.render('newnote', { title: 'Echo Text - New Item (error)', message: errMsg });
+            res.render('newnote', {title: 'Echo Text - New Item (error)', message: errMsg});
         }
         else {
             console.log('Stand-up meeting note was saved!');
             // Redirect to the home page to display list of notes...
             res.redirect(301, '/etext/list');
         }
-        })
+    })
         .then(null, console.error);
 
 };
@@ -55,29 +58,29 @@ function submit(req, res) {
     var id = req.body.btnSaveNote;
 
     var query = Echotext.findById(id);
-    query.exec(function(err, results){
-            if(err){
-                console.error('ERROR on findBiId() ' + err);
-                return;
-            }
-            else {
+    query.exec(function (err, results) {
+        if (err) {
+            console.error('ERROR on findBiId() ' + err);
+            return;
+        }
+        else {
 
-                return res.render('./etext/etext-submit', {title: "Let's verify this item", item: results});
-            }
+            return res.render('./etext/etext-submit', {title: "Let's verify this item", item: results});
+        }
     });
 }
 
 function verify(req, res) {
     var id = req.body.btnSaveNote;
     var query = Echotext.findById(id);
-    query.exec(function(err, results){
-        if(err){
+    query.exec(function (err, results) {
+        if (err) {
             console.error('ERROR on findBiId() ' + err);
             return;
         }
         else {
             var test = Utils.checkText(results.eText, req.body.eText);
-            if(req.body.mode === 'verification') {
+            if (req.body.mode === 'verification') {
                 Utils.saveHistory(id, req.body.eText, test.errors);
             }
             return res.render('./etext/etext-verify', {title: "Let's verify this item", item: results, test: test});
@@ -85,6 +88,24 @@ function verify(req, res) {
     });
 };
 
+function showHistory(req, res) {
+    var userId = "59c6edcb7eb6668b185e7af7";
+    var id = req.body.btnShowHistory;
+    User.findById(userId).
+        populate('history').
+        exec(function (err, results) {
+        if (err) {
+            console.error('ERROR on findBiId() ' + err);
+            return;
+        }
+        else {
+            console.log(results);
+            // return res.render('./etext/etext-history', {title: "Let's verify this item", item: results, test: test});
+        }
+    });
+
+    console.log()
+}
 
 // Module exports...
 module.exports.list = list;
@@ -92,3 +113,4 @@ module.exports.create = create;
 module.exports.getNewForm = getNewForm;
 module.exports.submit = submit;
 module.exports.verify = verify;
+module.exports.showHistory = showHistory;

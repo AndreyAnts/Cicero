@@ -10,7 +10,8 @@ var echotextSchema = new Schema({
     eOrder: Number,
     eText: { type: String, required: true },
     eHint: String,
-    createdOn: {type: Date, default: Date.now, required: true}
+    createdOn: {type: Date, default: Date.now, required: true},
+    isActive: {type: Boolean, required: true,default: true}
 });
 
 // Export model...
