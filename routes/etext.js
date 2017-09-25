@@ -29,7 +29,7 @@ router.post('/verify', function (req, res, next) {
     return etextCtrl.verify(req, res, next);
 });
 
-router.get('/history', function (req, res, next) {
+router.post('/history', function (req, res, next) {
     return etextCtrl.showHistory(req, res, next);
 })
 

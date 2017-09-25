@@ -91,8 +91,8 @@ function verify(req, res) {
 function showHistory(req, res) {
     var userId = "59c6edcb7eb6668b185e7af7";
     var id = req.body.btnShowHistory;
-    User.findById(userId).
-        populate('history').
+    console.log(id);
+    HistoryRecord.find({actionedBy: userId, actionedFor: id}).
         exec(function (err, results) {
         if (err) {
             console.error('ERROR on findBiId() ' + err);
@@ -100,7 +100,7 @@ function showHistory(req, res) {
         }
         else {
             console.log(results);
-            // return res.render('./etext/etext-history', {title: "Let's verify this item", item: results, test: test});
+            return res.render('./etext/etext-history', {title: "History records", items: results, user});
         }
     });
 

@@ -43,11 +43,11 @@
             <div class="col-md-12 column list-group">
                 {% for item in items %}
                 <div class="list-group-item">
-                    <div><strong>User: </strong> {{ item.actionedBy }}</div>
+                    <div><strong>User: </strong> {{ user.firstName + ' ' + user.lastName }}</div>
                     <div>Tried on: {{ item.actionedOn.toDateString() }}</div>
 
                     <div><strong>Entered: </strong> {{ item.body }}</div>
-                    <div><strong>Is Success: </strong> {{ item.IsSuccess }}</div>
+                    <div><strong>Is Success: </strong> {{ item.isSuccess }}</div>
                     <div><strong>Number of errors: </strong> {{ item.numOfErrors }}</div>
                     <!-- Button -->
 
