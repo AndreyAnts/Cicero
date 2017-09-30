@@ -100,7 +100,7 @@ function showHistory(req, res) {
         }
         else {
             console.log(results);
-            return res.render('./etext/etext-history', {title: "History records", items: results, user});
+            return res.render('./etext/etext-history', {title: "History records", items: results});
         }
     });
 
