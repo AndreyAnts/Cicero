@@ -11,7 +11,7 @@ function list(req, res) {
     var query = Echotext.find();
 
     query.sort({eOrder: 'ascending'})
-        .limit(12)
+        .limit(20)
         .exec(function (err, results) {
             if (err) {
                 console.error('ERROR on List() ' + err);
