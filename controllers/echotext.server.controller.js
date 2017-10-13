@@ -11,7 +11,7 @@ function list(req, res) {
     var query = Echotext.find();
 
     query.sort({eOrder: 'ascending'})
-        .limit(20)
+        .limit(60)
         .exec(function (err, results) {
             if (err) {
                 console.error('ERROR on List() ' + err);
@@ -29,6 +29,7 @@ function getNewForm(req, res) {
 
 function create(req, res) {
     var entry = new Echotext({
+
         eTitle: req.body.eTitle,
         eSubTitle: req.body.eSubTitle,
         eType: '',
